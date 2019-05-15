@@ -7,7 +7,21 @@ from test_framework.test_utils import enable_executor_hook
 # Assume s is a string encoded as bytearray.
 def reverse_words(s):
     # TODO - you fill in here.
-    return
+    def reverse_range(s, start, finish):
+    	while start < finish:
+    		s[start], s[finish] = s[finish], s[start]
+    		start += 1
+    		finish -= 1
+    start = 0
+    s.reverse()
+    while True:
+    		finish = s.find(b' ', start)
+    		if finish < 0: break
+    		reverse_range(s, start, finish - 1)
+    		start = finish + 1
+    reverse_range(s, start, len(s) - 1)
+
+    return s
 
 
 @enable_executor_hook

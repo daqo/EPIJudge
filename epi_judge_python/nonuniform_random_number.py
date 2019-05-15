@@ -6,10 +6,18 @@ from test_framework import generic_test
 from test_framework.random_sequence_checker import run_func_with_retries
 from test_framework.test_utils import enable_executor_hook
 
-
+import random
+import bisect
+import itertools
 def nonuniform_random_number_generation(values, probabilities):
-    # TODO - you fill in here.
-    return 0
+    # TODO - you fill in here. 
+    # acc_probs = [probabilities[0]]
+    # for i in range(1, len(probabilities)):
+    #     acc_probs.append(acc_probs[i - 1] + probabilities[i])
+    acc_probs = list(itertools.accumulate(probabilities))
+
+    interval_idx = bisect.bisect(acc_probs, random.random())
+    return values[interval_idx]
 
 
 @enable_executor_hook
