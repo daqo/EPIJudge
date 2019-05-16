@@ -4,10 +4,35 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+class ListNode:
+    def __init__(self, data=0, next=None):
+        self.data = data
+        self.next = next
 
 def list_pivoting(l, x):
     # TODO - you fill in here.
-    return None
+    if not l: return l
+    psmaller = smaller_prehead = ListNode('d1')
+    pequal = equal_prehead = ListNode('d2')
+    plarger = larger_prehead = ListNode('d3')
+
+    while l:
+        temp = l.next
+        l.next = None
+        if l.data < x:
+            psmaller.next = l
+            psmaller = psmaller.next
+        elif l.data == x:
+            pequal.next = l
+            pequal = pequal.next
+        else:
+            plarger.next = l
+            plarger = plarger.next
+        l = temp
+
+    psmaller.next = equal_prehead.next
+    pequal.next = larger_prehead.next
+    return smaller_prehead.next
 
 
 def linked_to_list(l):
