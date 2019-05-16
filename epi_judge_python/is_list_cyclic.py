@@ -4,9 +4,23 @@ from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
+class ListNode:
+    def __init__(self, data=0, next=None):
+        self.data = data
+        self.next = next
 
 def has_cycle(head):
     # TODO - you fill in here.
+    if not head: return None 
+    f = head
+    s = head
+    while f and f.next and f.next.next:
+        s = s.next
+        f = f.next.next
+        if s is f: 
+            while s is not f:
+                s = s.next
+            return s
     return None
 
 
