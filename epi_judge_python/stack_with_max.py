@@ -1,23 +1,34 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
-
+import collections
 class Stack:
+    ElementWithCachedMax = collections.namedtuple('ElementWithCachedMax', ('element', 'max'))
+
+    def __init__(self):
+        self._elements = []
+
     def empty(self):
         # TODO - you fill in here.
-        return True
+        return len(self._elements) == 0
 
     def max(self):
         # TODO - you fill in here.
-        return 0
+        if self.empty():
+            raise IndexError('max(): empty stack')
+        return self._elements[-1].max
 
     def pop(self):
         # TODO - you fill in here.
+        if self.empty():
+            raise IndexError('pop(): empty stack')
+        return self._elements.pop().element
         return 0
 
     def push(self, x):
         # TODO - you fill in here.
-        return
+        item = self.ElementWithCachedMax(x, x if self.empty() else max(x, self.max()))
+        self._elements.append(item)
 
 
 def stack_tester(ops):
