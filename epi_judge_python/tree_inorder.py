@@ -3,7 +3,16 @@ from test_framework import generic_test
 
 def inorder_traversal(tree):
     # TODO - you fill in here.
-    return []
+    result, s = [], []
+    while s or tree:
+    	if tree:
+    		s.append(tree)
+    		tree = tree.left
+    	else:
+    		item = s.pop()
+    		result.append(item.data)
+    		tree = item.right
+    return result
 
 
 if __name__ == '__main__':
