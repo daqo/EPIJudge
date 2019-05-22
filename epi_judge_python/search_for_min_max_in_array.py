@@ -8,7 +8,16 @@ MinMax = collections.namedtuple('MinMax', ('smallest', 'largest'))
 
 def find_min_max(A):
     # TODO - you fill in here.
-    return MinMax(0, 0)
+    def min_max(a, b):
+        return MinMax(a, b) if a < b else MinMax(b, a)
+    if len(A) <= 1: return MinMax(A[0], A[0])
+    global_minmax = min_max(A[0], A[1])
+    for i in range(2, len(A) - 1, 2):
+        local_minmax = min_max(A[i], A[i + 1])
+        global_minmax = MinMax(min(global_minmax.smallest, local_minmax.smallest), max(global_minmax.largest, local_minmax.largest))
+    if len(A) % 2:
+        global_minmax = MinMax(min(global_minmax.smallest, A[-1]), max(global_minmax.largest, A[-1]))
+    return global_minmax
 
 
 def res_printer(prop, value):
