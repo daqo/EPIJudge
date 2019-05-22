@@ -1,8 +1,13 @@
 from test_framework import generic_test
 
-
+import collections
 def is_letter_constructible_from_magazine(letter_text, magazine_text):
     # TODO - you fill in here.
+    char_frequency_for_letter = collections.Counter(letter_text)
+    char_frequency_for_magazine = collections.Counter(magazine_text)
+    for k, v in char_frequency_for_letter.items():
+    	if char_frequency_for_magazine[k] < v:
+    		return False
     return True
 
 
