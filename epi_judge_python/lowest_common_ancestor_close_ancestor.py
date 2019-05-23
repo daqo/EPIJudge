@@ -8,6 +8,19 @@ from test_framework.test_utils import enable_executor_hook
 
 def lca(node0, node1):
     # TODO - you fill in here.
+    c0, c1 = node0, node1
+    nodes_on_path_to_root = set()
+    while c0 or c1:
+        if c0:
+            if c0 in nodes_on_path_to_root:
+                return c0
+            nodes_on_path_to_root.add(c0)
+            c0 = c0.parent
+        if c1:
+            if c1 in nodes_on_path_to_root:
+                return c1
+            nodes_on_path_to_root.add(c1)
+            c1 = c1.parent
     return None
 
 
