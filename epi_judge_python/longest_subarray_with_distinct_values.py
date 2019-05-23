@@ -4,17 +4,15 @@ import collections
 def longest_subarray_with_distinct_entries(A):
 		# TODO - you fill in here.
 		h = collections.defaultdict(int)
-		left, right, longest = 0, 0, float('-inf')
+		left, right = 0, 0
+		longest = float('-inf')
 		while right < len(A):
 			begin_char, end_char = A[left], A[right]
-			if h[end_char] == 0:
-				h[end_char] += 1
-				right += 1
-			else:
-				# record the longest observed subarray with distinct entries
+			if end_char in h and h[end_char] >= left:
 				longest = max(longest, right - left)
-				h[begin_char] = 0
-				left += 1
+				left = h[end_char] + 1
+			h[end_char] = right
+			right += 1
 		return max(longest, right - left)
 
 if __name__ == '__main__':
