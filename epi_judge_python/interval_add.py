@@ -10,7 +10,21 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 def add_interval(disjoint_intervals, new_interval):
     # TODO - you fill in here.
-    return []
+    def do_overlap(interval1, interval2):
+        return max(interval1.left, interval2.left) <= min(interval1.right, interval2.right)
+    res = []
+    cand = new_interval
+    for interval in disjoint_intervals:
+        if cand and do_overlap(interval, cand):
+            cand = Interval(min(interval.left, cand.left), max(interval.right, cand.right))
+        else:
+            if cand and (interval.left > cand.right):
+                res.append(cand)
+                cand = None
+            res.append(interval)
+    if cand: res.append(cand)
+    return res
+
 
 
 @enable_executor_hook

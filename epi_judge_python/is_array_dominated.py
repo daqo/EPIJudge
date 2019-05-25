@@ -15,8 +15,6 @@ class Team:
     # Checks if team0 can be placed in front of team1.
     @staticmethod
     def valid_placement_exists(team0, team1):
-        # TODO - you fill in here.
-        return True
 
 
 @enable_executor_hook

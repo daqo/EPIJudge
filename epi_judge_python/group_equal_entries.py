@@ -7,11 +7,30 @@ from test_framework.test_utils import enable_executor_hook
 
 Person = collections.namedtuple('Person', ('age', 'name'))
 
-
+import collections
 def group_by_age(people):
     # TODO - you fill in here.
-    return
+    h = collections.defaultdict(int)
+    for i, person in enumerate(people):
+        h[person.age] += 1
+    offset = collections.defaultdict(collections.deque)
 
+    i = 0
+    for k, v in h.items():
+        offset[k].extend(list(range(i, i + v)))
+        i += v
+
+    j = 0
+    while j < len(people):
+        person = people[j]
+        if offset[person.age]:            
+            ind = offset[person.age].popleft()
+            if ind == j:
+                j += 1
+            else:
+                people[j], people[ind] = people[ind], people[j]
+        else:
+            j += 1
 
 @enable_executor_hook
 def group_by_age_wrapper(executor, people):
