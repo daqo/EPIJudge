@@ -1,10 +1,18 @@
 from test_framework import generic_test
 
-
+import bisect
+import collections
 def find_first_greater_than_k(tree, k):
     # TODO - you fill in here.
-    return None
-
+    first_so_far = None
+    c = tree
+    while c:
+        if c.data > k:
+            first_so_far = c
+            c = c.left
+        else:
+            c = c.right
+    return first_so_far
 
 def find_first_greater_than_k_wrapper(tree, k):
     result = find_first_greater_than_k(tree, k)
