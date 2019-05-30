@@ -15,12 +15,12 @@ def reverse_words(s):
     start = 0
     s.reverse()
     while True:
-    		finish = s.find(b' ', start)
-    		if finish < 0: break
-    		reverse_range(s, start, finish - 1)
-    		start = finish + 1
+        finish = s.find(b' ', start)
+        if finish == -1:
+            break
+        reverse_range(s, start, finish - 1)
+        start = finish + 1
     reverse_range(s, start, len(s) - 1)
-
     return s
 
 

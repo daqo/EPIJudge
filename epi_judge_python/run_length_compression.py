@@ -27,9 +27,9 @@ def decoding(s):
     count, res = 0, []
     for i in range(len(s)):
         if s[i].isdigit():
-            count = count * 10 + int(s[i])            
+            count = 10 * count + int(s[i])
         else:
-            res.extend([s[i] * count])
+            res.extend([s[i]] * count)
             count = 0
     return ''.join(res)
 

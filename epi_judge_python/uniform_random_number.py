@@ -10,10 +10,18 @@ from test_framework.test_utils import enable_executor_hook
 def zero_one_random():
     return random.randrange(2)
 
-
+import math
 def uniform_random(lower_bound, upper_bound):
-    # TODO - you fill in here.
-    return 0
+    valid_outcome_range = upper_bound - lower_bound
+    number_of_flips = math.floor(math.log2(valid_outcome_range)) + 1
+    while True:
+      res = 0
+      for i in range(number_of_flips):
+        if zero_one_random():
+          res |= (1 << i)
+      if res <= valid_outcome_range:
+        break
+    return lower_bound + res
 
 
 @enable_executor_hook
