@@ -6,28 +6,22 @@ class ListNode:
         self.next = next
 
 def even_odd_merge(L):
-    if not L: return L
-    peven = even_prehead = ListNode('dummy-even')
-    podd = odd_prehead = ListNode('dummy-odd')
-
-    c = L
-    cnt = -1
-    while c:
-    	cnt += 1
-    	if cnt % 2 == 0:
-    		peven.next = c
-    		t = c.next
-    		c.next = None
-    		c = t
-    		peven = peven.next
-    	else:
-    		podd.next = c
-    		t = c.next
-    		c.next = None
-    		c = t
-    		podd = podd.next
-    peven.next = odd_prehead.next
-    return even_prehead.next
+	if not L: return L
+	evens = L
+	odds = L.next
+	c0 = evens
+	c1 = odds
+	while c0 and c1:
+		last = c0
+		c0.next = c0.next and c0.next.next
+		c0 = c0.next
+		c1.next = c1.next and c1.next.next
+		c1 = c1.next
+	if c0:
+		c0.next = odds
+	else:
+		last.next = odds
+	return evens
 
 
 if __name__ == '__main__':

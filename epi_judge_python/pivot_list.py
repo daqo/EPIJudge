@@ -17,8 +17,6 @@ def list_pivoting(l, x):
     plarger = larger_prehead = ListNode('d3')
 
     while l:
-        temp = l.next
-        l.next = None
         if l.data < x:
             psmaller.next = l
             psmaller = psmaller.next
@@ -28,11 +26,12 @@ def list_pivoting(l, x):
         else:
             plarger.next = l
             plarger = plarger.next
-        l = temp
-
-    psmaller.next = equal_prehead.next
+        l = l.next
+    plarger.next = None
     pequal.next = larger_prehead.next
+    psmaller.next = equal_prehead.next
     return smaller_prehead.next
+
 
 
 def linked_to_list(l):

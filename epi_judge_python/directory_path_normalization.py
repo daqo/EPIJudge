@@ -3,21 +3,22 @@ from test_framework import generic_test
 
 def shortest_equivalent_path(path):
 		# TODO - you fill in here.
-		path_names = []
-		if path[0] == '/':
-			path_names.append('/')
-		for token in (token for token in path.split('/')
-                  if token not in ['.', '']):
-				if token == '..':
-					if not path_names or path_names[-1] == '..':
-						path_names.append(token)
-					else:
-						if path_names[-1] == '/': raise ValueError('Path Error')
-						path_names.pop()
-				else:  # Must be a name.
-						path_names.append(token)
-		result = '/'.join(path_names)
-		return result[result.startswith('//'):]
+		s = []
+		absolute_path = True if path[0] == '/' else False
+		path_list = path.split('/')
+
+		for item in path_list:
+			if item in ('', '.'): continue
+			elif (item == '..' and (len(s) == 0 or s[-1] == '..')) or item.isalnum():
+				s.append(item)
+			elif (item == '..' and len(s) != 0 ):
+				s.pop()
+		res = '/'.join(s)
+		if res == '':
+			return '/'
+		if absolute_path:
+			return '/' + res
+		return res
 
 
 if __name__ == '__main__':

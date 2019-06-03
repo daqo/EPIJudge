@@ -2,14 +2,11 @@ from test_framework import generic_test
 
 
 def is_balanced_binary_tree(tree):
-		# TODO - you fill in here.
 		def is_balanced(tree):
 			if not tree: return (True, 0)
 			is_left_balanced, left_height = is_balanced(tree.left)
-			if not is_left_balanced:
-				return (False, -1)
 			is_right_balanced, right_height = is_balanced(tree.right)
-			if not is_right_balanced:
+			if not is_left_balanced or not is_right_balanced:
 				return (False, -1)
 			return (abs(left_height - right_height) <= 1, max(left_height, right_height) + 1)
 

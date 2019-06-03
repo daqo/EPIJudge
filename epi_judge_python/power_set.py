@@ -2,9 +2,17 @@ from test_framework import generic_test, test_utils
 
 
 def generate_power_set(S):
-    # TODO - you fill in here.
-    return []
-
+  	if len(S) == 0:
+  		return [[]]
+  	elif len(S) == 1:
+  		return [[], [S[0]]]
+  	res = []
+  	for item in generate_power_set(S[1:]):
+  		res.append(item.copy())
+  		item_copy = item.copy()
+  		item_copy.append(S[0])
+  		res.append(item_copy)
+  	return res
 
 if __name__ == '__main__':
     exit(

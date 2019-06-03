@@ -6,10 +6,9 @@ def has_path_sum(tree, remaining_weight):
     if not tree: return False
     if not tree.left and not tree.right:
     	if tree.data == remaining_weight: return True
-    res1 = has_path_sum(tree.left, remaining_weight - tree.data)
-    if not res1:
-    	res2 = has_path_sum(tree.right, remaining_weight - tree.data)
-    return res1 or res2
+    if not has_path_sum(tree.left, remaining_weight - tree.data):
+        return has_path_sum(tree.right, remaining_weight - tree.data)
+    return True
 
 
 if __name__ == '__main__':

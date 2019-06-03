@@ -5,20 +5,12 @@ def binary_tree_depth_order(tree):
 		# TODO - you fill in here.
 		if not tree: return []
 		result = []
-		queue = [tree]
-		while queue:
-			# temp = []
-			# for item in queue:
-			# 	temp.append(item.data)
-			# result.append(temp)
-			result.append([item.data for item in queue])
-
-			# temp = []	
-			# for curr in queue:
-			# 	if curr.left: temp.append(curr.left)
-			# 	if curr.right:temp.append(curr.right)
-			# queue = temp
-			queue = [child for curr in queue for child in (curr.left, curr.right) if child]
+		q = [[tree]]
+		while q:
+			items = q.pop(0)
+			result.append([item.data for item in items])
+			tmp = [child for item in items for child in (item.left, item.right) if child]
+			if tmp: q.append(tmp)
 		return result
 
 

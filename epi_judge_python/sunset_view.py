@@ -15,10 +15,11 @@ def examine_buildings_with_sunset(sequence):
 
 		# solution with stack
 		stack = []
-		for i in reversed(range(len(sequence))):
-			if not stack or (stack and stack[-1][1] < sequence[i]):
-				stack.append((i, sequence[i]))
-		return [item[0] for item in stack]
+		for building_idx, building_height in enumerate(sequence):
+			while stack and building_height >= stack[-1][1]:
+				stack.pop()
+			stack.append((building_idx, building_height))
+		return [c[0] for c in reversed(stack)]
 
 
 

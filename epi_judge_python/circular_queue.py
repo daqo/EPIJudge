@@ -4,43 +4,30 @@ from test_framework.test_failure import TestFailure
 
 class Queue:
     SCALE_FACTOR = 2
-    def __init__(self, capacity):
-        # TODO - you fill in here.
-        self._entries = [None] * capacity
-        self._head = self._tail = self._num_queue_elements = 0
 
+    def __init__(self, capacity):
+        self._capacity = capacity
+        self._items = [None] * capacity
+        self._head = self._tail = self._num_queue_elements = 0
     def enqueue(self, x):
-        # TODO - you fill in here.
-        if self._num_queue_elements >= len(self._entries):
-            self._entries = self._entries[self._head:] + self._entries[:self._head]
+        if self._num_queue_elements == self._capacity:
+            self._capacity *= Queue.SCALE_FACTOR
+            self._items = (self._items[self._head:] + self._items[:self._head])
             self._head = 0
             self._tail = self._num_queue_elements
-            self._entries += [None] * (len(self._entries) * Queue.SCALE_FACTOR - len(self._entries))
+            self._items += [None] * (self._capacity - len(self._items))
+        self._items[self._tail] = x
+        self._tail = (self._tail + 1) % len(self._items)
         self._num_queue_elements += 1
-        self._entries[self._tail] = x
-        if self._tail == len(self._entries) - 1:
-            self._tail = 0
-        else:
-            self._tail += 1
-
     def dequeue(self):
-        # TODO - you fill in here.
-        if not self._num_queue_elements:
-            raise IndexError('dequeue: Empty Queue')
-        item = self._entries[self._head]
+        if self.size() == 0:
+            raise IndexError('dequeue: Queue Empty')
         self._num_queue_elements -= 1
-        if self._head < len(self._entries) - 1:
-            self._entries[self._head] = None
-            self._head = self._head + 1
-        else:
-            self._entries[self._head] = None
-            self._head = 0
+        item = self._items[self._head]
+        self._head = (self._head + 1) % len(self._items)
         return item
-
     def size(self):
-        # TODO - you fill in here.
         return self._num_queue_elements
-
 
 def queue_tester(ops):
     q = Queue(1)

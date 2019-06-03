@@ -10,19 +10,19 @@ def cyclically_right_shift_list(L, k):
 				cnt += 1
 				c = c.next
 			return cnt
-		
 		if not L: return L
 		k = k % length(L)
 		if not k: return L
-		c1 = c2 = L
-		for _ in range(k):
-			c2 = c2.next
-		while c2.next:
-			c2 = c2.next
-			c1 = c1.next
-		new_head = c1.next
-		c1.next = None
-		c2.next = L
+		c = L
+		p = None
+		for _ in range(length(L) - k):
+			p = c
+			c = c.next
+		new_head = c
+		p.next = None
+		while c.next:
+			c = c.next
+		c.next = L
 		return new_head
 
 
