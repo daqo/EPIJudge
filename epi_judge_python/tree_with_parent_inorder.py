@@ -11,7 +11,7 @@ def inorder_traversal(tree):
 	    	while tree.left and tree.left is not prev:
 	    		tree = tree.left
 	    	result.append(tree.data)
-	    	prev, tree = tree, tree.right if tree.right else tree.parent
+	    	prev, tree = tree, tree.right or tree.parent
     return result
 
 

@@ -4,11 +4,16 @@ def find_nearest_repetition(A):
 		# TODO - you fill in here.
 		h = {}
 		min_distance = float('inf')
-		for i, word in enumerate(A):
-			if word in h:
-				min_distance = min(min_distance, i - h[word])
-			h[word] = i
-		return min_distance if min_distance != float('inf') else -1
+		for i in range(len(A)):
+			if h.get(A[i]) is None:
+				h[A[i]] = i
+			else:
+				min_distance = min(min_distance, i - h[A[i]])
+				h[A[i]] = i
+		if min_distance == float('inf'):
+			return -1
+		return min_distance
+
 
 
 

@@ -1,21 +1,20 @@
 from test_framework import generic_test
 
 
-def search_first_of_k(A, k):
+def search_first_of_k(A, key):
     # TODO - you fill in here.
-    L = 0
-    U = len(A) - 1
-    result = -1
-    while L <= U:
-    	M = (L + U) // 2
-    	if A[M] == k:
-    		result = M
-    		U = M - 1
-    	elif A[M] < k:
-    		L = M + 1
-    	else: 
-    		U = M - 1
-    return result
+    p = 0
+    r = len(A) - 1
+    while p <= r:
+        q = (p + r) // 2
+        if A[q] == key:
+            r = q
+            if p == r: return r
+        elif A[q] < key:
+            p = q + 1
+        else:
+            r = q - 1
+    return -1
 
 
 if __name__ == '__main__':

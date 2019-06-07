@@ -3,7 +3,7 @@ from test_framework import generic_test
 
 def test_collatz_conjecture(n):
 		verified_numbers = set()
-		for i in range(1, n + 1):
+		for i in range(3, n + 1):
 			test_i = i
 			already_met = set()	
 			while test_i >= i:

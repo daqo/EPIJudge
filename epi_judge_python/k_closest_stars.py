@@ -30,17 +30,12 @@ import itertools
 def find_closest_k_stars(stars, k):
     # TODO - you fill in here.
     max_heap = []
-    result = []
     for star in itertools.islice(stars, k):
         heapq.heappush(max_heap, (-star.distance, star))
-
     for star in stars:
         heapq.heappushpop(max_heap, (-star.distance, star))
+    return [item[1] for item in heapq.nlargest(k, max_heap)]
 
-    while max_heap:
-        _, star = heapq.heappop(max_heap)
-        result.append(star)
-    return result
 
 
 def comp(expected_output, output):

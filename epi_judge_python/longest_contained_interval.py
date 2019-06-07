@@ -3,14 +3,22 @@ from test_framework import generic_test
 import pdb
 def longest_contained_range(A):
 		# TODO - you fill in here.
-		A = sorted(list(set(A)))
-		left = right = 0
-		longest = float('-inf')
-		for right in range(1, len(A)):
-			if A[right] != A[right - 1] and A[right] > A[right - 1] + 1:
-				longest = max(longest, right - left)
-				left = right
-		return max(longest, right + 1 - left)
+		max_interval_size = 0
+		unprocessed_entries = set(A)
+		while unprocessed_entries:
+			item = unprocessed_entries.pop()
+			lower_bound = item - 1
+			while lower_bound in unprocessed_entries:
+				unprocessed_entries.remove(lower_bound)
+				lower_bound -= 1
+			upper_bound = item + 1
+			while upper_bound in unprocessed_entries:
+				unprocessed_entries.remove(upper_bound)
+				upper_bound += 1
+			max_interval_size = max(max_interval_size, upper_bound - lower_bound - 1)
+
+		return max_interval_size
+
 
 
 if __name__ == '__main__':

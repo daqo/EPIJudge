@@ -6,50 +6,34 @@ from test_framework import generic_test
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 import random
 def find_kth_largest(k, A):
-		# TODO - you fill in here.
-		def partition(A, p, r):
-			x = A[r]
-			i = p - 1
-			for j in range(p, r):
-					if A[j] <= x:
-							i += 1
-							A[i], A[j] = A[j], A[i]
-			A[i + 1], A[r] = A[r], A[i + 1]
-			return i + 1
+	def select(A, p, r, k):
+		while p <= r:
+			pivot_idx = random.randint(p, r)
+			A[r], A[pivot_idx] = A[pivot_idx], A[r]
+			q = partition(A, p, r)
+			i = q - p + 1 # element located at q is gonna be ith smallest element of array
+			if i == k:
+				return A[q]
+			elif k < i:
+				p, r, k = p, q - 1, k
+			else:
+				p, r, k = q + 1, r, k - i
 
-		def select(A, p, r, i):
-			# recursive
-			# if p > r: return -1
-			
-			# pivot_idx = random.randint(p, r)
-			# A[r], A[pivot_idx] = A[pivot_idx], A[r]
-			
-			# q = partition(A, p, r)
-			# k = q - p + 1
-			# if i == k: 
-			# 	return A[q]
-			# elif i < k: 
-			# 	return select(A, p, q - 1, i)
-			# else: 
-			# 	return select(A, q + 1, r, i - k)
-			# ----------------------------------------
-			
-			# iterative
-			while p <= r:
-				pivot_idx = random.randint(p, r)
-				A[r], A[pivot_idx] = A[pivot_idx], A[r]
-				
-				q = partition(A, p, r)
-				k = q - p + 1
-				if i == k: 
-					return A[q]
-				elif i < k: 
-					r = q - 1
-				else: 
-					p = q + 1
-					i = i - k
-			return -1
-		return select(A, 0, len(A) - 1, len(A) - k + 1)
+	def partition(A, p, r):
+		pivot = A[r]
+		smaller = p
+		larger = r
+		while smaller < larger:
+			if A[smaller] <= pivot:
+				smaller += 1
+			else:
+				larger -= 1
+				A[smaller], A[larger] = A[larger], A[smaller]
+		A[smaller], A[r] = A[r], A[smaller]
+		return smaller
+
+	k = len(A) - k + 1
+	return select(A, 0, len(A) - 1, k)
 
 
 if __name__ == '__main__':

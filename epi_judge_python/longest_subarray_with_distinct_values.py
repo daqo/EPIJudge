@@ -15,6 +15,20 @@ def longest_subarray_with_distinct_entries(A):
 			right += 1
 		return max(longest, right - left)
 
+		# h = {}
+		# left = 0
+		# max_len = float('-inf')
+		# for right, item in enumerate(A):
+		# 	if h.get(item) is None:
+		# 		h[item] = right
+		# 	else:
+		# 		if h[item] >= left:
+		# 			left = h[item] + 1
+		# 		h[item] = right
+		# 	max_len = max(max_len, right - left + 1)
+		# if max_len == float('-inf'): return 0
+		# return max_len
+
 if __name__ == '__main__':
 		exit(
 				generic_test.generic_test_main(

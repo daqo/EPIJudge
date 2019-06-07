@@ -2,8 +2,17 @@ from test_framework import generic_test
 
 
 def matrix_search(A, x):
-    # TODO - you fill in here.
-    return True
+    n = len(A)
+    m = len(A[0])
+    i, j = 0, m - 1
+    while 0 <= i < n and 0 <= j < m:
+    	if x == A[i][j]:
+    		return True
+    	elif x < A[i][j]:
+    		j -= 1
+    	else:
+    		i += 1
+    return False
 
 
 if __name__ == '__main__':
