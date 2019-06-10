@@ -4,15 +4,16 @@ import bisect
 import collections
 def find_first_greater_than_k(tree, k):
     # TODO - you fill in here.
-    first_so_far = None
+    cand = None
     c = tree
     while c:
-        if c.data > k:
-            first_so_far = c
-            c = c.left
-        else:
+        if c.data <= k:
             c = c.right
-    return first_so_far
+        else:
+            if (cand is None) or (cand.data > c.data):
+                cand = c
+            c = c.left
+    return cand
 
 def find_first_greater_than_k_wrapper(tree, k):
     result = find_first_greater_than_k(tree, k)

@@ -5,9 +5,9 @@ def find_k_largest_in_bst(tree, k):
 		# TODO - you fill in here.
 		def helper(tree):
 			if not tree: return
-			len(A) < k and helper(tree.right)
-			len(A) < k and A.append(tree.data)
-			len(A) < k and helper(tree.left)
+			if len(A) < k: helper(tree.right)
+			if len(A) < k: A.append(tree.data)
+			if len(A) < k: helper(tree.left)
 		A = []
 		helper(tree)
 		return A

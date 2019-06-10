@@ -10,8 +10,8 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 def add_interval(disjoint_intervals, new_interval):
     # TODO - you fill in here.
-    def do_overlap(interval1, interval2):
-        return max(interval1.left, interval2.left) <= min(interval1.right, interval2.right)
+    def do_overlap(a, b):
+        return max(a.left, b.left) <= min(a.right, b.right)
     res = []
     cand = new_interval
     for interval in disjoint_intervals:

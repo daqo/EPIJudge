@@ -26,7 +26,8 @@ def eliminate_duplicate(A):
             A[write_idx] = A[i]
             write_idx += 1
     del A[write_idx:]
-    
+
+
     # using sets
     # s = set(A)
     # write_idx = 0

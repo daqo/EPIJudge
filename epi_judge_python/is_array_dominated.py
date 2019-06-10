@@ -15,6 +15,14 @@ class Team:
     # Checks if team0 can be placed in front of team1.
     @staticmethod
     def valid_placement_exists(team0, team1):
+        team0 = sorted(team0._players)
+        team1 = sorted(team1._players)
+
+        return all([x[0] < x[1] for x in zip(team0, team1)])
+
+# team0: [1, 4, 5]
+# team1: [0, 2, 3]
+
 
 
 @enable_executor_hook

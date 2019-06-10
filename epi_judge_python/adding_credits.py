@@ -1,27 +1,45 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
-
+import bintrees
 class ClientsCreditsInfo:
-    def insert(self, client_id, c):
-        # TODO - you fill in here.
-        return
+    def __init__(self):
+        self.client_to_credit = {}
+        self.credit_to_clients = bintrees.RBTree()
+        self.offset = 0
+    def insert(self, client_id, credit):
+        self.remove(client_id)
+        self.client_to_credit[client_id] = credit - self.offset
+        self.credit_to_clients.setdefault(credit - self.offset, set()).add(client_id)
 
     def remove(self, client_id):
-        # TODO - you fill in here.
-        return True
+        credit = self.client_to_credit.get(client_id)
+        if credit is not None:
+            self.credit_to_clients[credit].remove(client_id)
+            if not self.credit_to_clients[credit]:
+                del self.credit_to_clients[credit]
+            del self.client_to_credit[client_id]
+            return True
+        return False
 
     def lookup(self, client_id):
-        # TODO - you fill in here.
-        return 0
+        credit = self.client_to_credit.get(client_id)
+        if credit is None:
+            return -1
+        else:
+            return credit + self.offset
 
     def add_all(self, C):
-        # TODO - you fill in here.
-        return
+        self.offset += C
 
     def max(self):
-        # TODO - you fill in here.
-        return ''
+        if not self.credit_to_clients:
+            return ''
+        clients = self.credit_to_clients.max_item()[1]
+        if not clients:
+            return ''
+        return next(iter(clients))
+        
 
 
 def client_credits_info_tester(ops):
