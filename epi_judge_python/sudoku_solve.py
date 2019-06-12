@@ -10,15 +10,24 @@ from test_framework.test_utils import enable_executor_hook
 
 def solve_sudoku(partial_assignment):
     def valid_to_add(i, j, val):
-        if any(val == partial_assignment[k][j] for k in range(len(partial_assignment))):
+        def elements_in_region(I, J):
+            items = []
+            for a, b in itertools.product(range(region_size), repeat=2):
+                item = partial_assignment[region_size * I + a][region_size * J + b] 
+                items.append(item)
+            return items
+
+        elements_in_col = [partial_assignment[k][j] for k in range(len(partial_assignment))]
+        meet_col_constraint = False if val in elements_in_col else True
+        if not meet_col_constraint:
             return False
         if val in partial_assignment[i]:
             return False
         region_size = int(math.sqrt(len(partial_assignment)))
-        I = i // region_size
-        J = j // region_size
-        return not any(val == partial_assignment[region_size * I + a][region_size * J + b] for  a, b in itertools.product(range(region_size), repeat=2))
-    
+        if val in elements_in_region(i // region_size, j // region_size):
+            return False
+        return True
+
     def solve_partial_sudoku(i, j):
         if i == len(partial_assignment):
             i = 0  # Starts a row.

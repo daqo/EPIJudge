@@ -9,13 +9,13 @@ def generate_all_binary_trees(num_nodes):
     if num_nodes == 0:
         return [None]
     result = []
-    for num_left_nodes in range(num_nodes):
-        num_right_nodes = num_nodes - num_left_nodes - 1
-        left_subtrees = generate_all_binary_trees(num_left_nodes)
-        right_subtrees = generate_all_binary_trees(num_right_nodes)
-        for left_subtree in left_subtrees:
-            for right_subtree in right_subtrees:
-                result.append(BinaryTreeNode(0, left_subtree, right_subtree))    
+    for num_nodes_left_subtree in range(0, num_nodes):
+        num_nodes_right_subtree = num_nodes - 1 - num_nodes_left_subtree
+        left_subtrees = generate_all_binary_trees(num_nodes_left_subtree)
+        right_subtrees = generate_all_binary_trees(num_nodes_right_subtree)
+        for left in left_subtrees:
+            for right in right_subtrees:
+                result.append(BinaryTreeNode(0, left, right))
     return result
 
 def serialize_structure(tree):
