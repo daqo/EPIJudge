@@ -2,9 +2,17 @@ from test_framework import generic_test
 
 
 def majority_search(stream):
-    # TODO - you fill in here.
-    return ''
-
+    candidate = None
+    candidate_count = 0
+    for it in stream:
+        if candidate_count == 0:
+            candidate = it
+            candidate_count += 1
+        elif it == candidate:
+            candidate_count += 1
+        else:
+            candidate_count -= 1
+    return candidate
 
 def majority_search_wrapper(stream):
     return majority_search(iter(stream))

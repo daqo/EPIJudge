@@ -8,8 +8,15 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def find_minimum_visits(intervals):
-    # TODO - you fill in here.
-    return 0
+    if not intervals: return 0
+    intervals.sort(key = lambda x: x.right)
+    last_visit_time = intervals[0].right
+    num_of_visits = 1
+    for interval in intervals:
+        if interval.left > last_visit_time:
+            last_visit_time = interval.right
+            num_of_visits += 1
+    return num_of_visits
 
 
 @enable_executor_hook

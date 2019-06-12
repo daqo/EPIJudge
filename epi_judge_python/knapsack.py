@@ -8,8 +8,19 @@ Item = collections.namedtuple('Item', ('weight', 'value'))
 
 
 def optimum_subject_to_capacity(items, capacity):
-    # TODO - you fill in here.
-    return 0
+    def dp(k, available_capacity):
+        if k < 0:
+            return 0
+        if V[k][available_capacity] == -1:
+            without_curr_item = dp(k - 1, available_capacity)
+            if available_capacity < items[k].weight:
+                with_curr_item = 0
+            else:
+                with_curr_item = items[k].value + dp(k - 1, available_capacity - items[k].weight)
+            V[k][available_capacity] = max(without_curr_item, with_curr_item)
+        return V[k][available_capacity]
+    V = [[-1] * (capacity + 1) for _ in items]
+    return dp(len(items) - 1, capacity)
 
 
 @enable_executor_hook
