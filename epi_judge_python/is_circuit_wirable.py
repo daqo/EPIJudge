@@ -9,10 +9,22 @@ class GraphVertex:
         self.d = -1
         self.edges = []
 
-
+import collections
 def is_any_placement_feasible(graph):
-    # TODO - you fill in here.
-    return True
+    def bfs(s):
+        s.d = 0
+        q = collections.deque([s])
+        while q:
+            v = q.popleft()
+            for t in v.edges:
+                if t.d == -1:
+                    t.d = v.d + 1
+                    q.append(t)
+                elif t.d == v.d:
+                    return False
+        return True
+    
+    return all(bfs(v) for v in graph if v.d == -1)
 
 
 @enable_executor_hook
